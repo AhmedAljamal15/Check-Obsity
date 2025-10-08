@@ -1,5 +1,4 @@
 # HealthyHub BMI Calculator
-[![Ask DeepWiki](https://devin.ai/assets/askdeepwiki.png)](https://deepwiki.com/AhmedAljamal15/Check-Obsity)
 
 HealthyHub is a cross-platform application built with Flutter to help users track their health by calculating their Body Mass Index (BMI). Based on user inputs like age, gender, height, and weight, the app provides a comprehensive health analysis, including personalized diet and exercise plans.
 
