@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_string_interpolations
 
-import 'package:check_obsity/Screens/dietplan.dart';
-import 'package:check_obsity/Screens/exercises.dart';
+import 'package:check_obsity/Features/DietPlan/view/dietplan_view.dart';
+import 'package:check_obsity/Features/Exercises/view/exercises_view.dart';
 import 'package:check_obsity/Widgets/calculatedBMI.dart';
 import 'package:check_obsity/Widgets/commentsBMI.dart';
-import 'package:check_obsity/constant.dart';
+import 'package:check_obsity/Core/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

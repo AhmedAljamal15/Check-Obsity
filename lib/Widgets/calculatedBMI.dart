@@ -1,17 +1,17 @@
-import 'package:check_obsity/constant.dart';
+import 'package:check_obsity/Core/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Widget displayCalculatedBMI(double bmiResult) {
-  Widget displayCalculatedBMI = Container(); // Initialize with a default value
+  Widget displayCalculatedBMI = Container(); 
 
   if (bmiResult <= 0) {
-    displayCalculatedBMI = Text(""); // Assign a value
+    displayCalculatedBMI = Text(""); 
   } else if (bmiResult < 16 && bmiResult > 0) {
     displayCalculatedBMI = Text(
       bmiResult.toStringAsFixed(2),
       style: TextStyle(
-        color: AppColors.lowhighBMIColor,
+        color: AppColors.normalBMIColor,
         decoration: TextDecoration.none,
         fontSize: ScreenUtil().setSp(48.0),
         fontFamily: 'RubikBold',
@@ -21,7 +21,7 @@ Widget displayCalculatedBMI(double bmiResult) {
     displayCalculatedBMI = Text(
       bmiResult.toStringAsFixed(2),
       style: TextStyle(
-        color: AppColors.lowhighBMIColor,
+        color: AppColors.normalBMIColor,
         decoration: TextDecoration.none,
         fontSize: ScreenUtil().setSp(48.0),
         fontFamily: 'RubikBold',
@@ -31,7 +31,7 @@ Widget displayCalculatedBMI(double bmiResult) {
     displayCalculatedBMI = Text(
       bmiResult.toStringAsFixed(2),
       style: TextStyle(
-        color: AppColors.lowhighBMIColor,
+        color: AppColors.normalBMIColor,
         decoration: TextDecoration.none,
         fontSize: ScreenUtil().setSp(48.0),
         fontFamily: 'RubikBold',
@@ -51,7 +51,7 @@ Widget displayCalculatedBMI(double bmiResult) {
     displayCalculatedBMI = Text(
       bmiResult.toStringAsFixed(2),
       style: TextStyle(
-        color: AppColors.lowhighBMIColor,
+        color: AppColors.normalBMIColor,
         decoration: TextDecoration.none,
         fontSize: ScreenUtil().setSp(48.0),
         fontFamily: 'RubikBold',
@@ -61,7 +61,7 @@ Widget displayCalculatedBMI(double bmiResult) {
     displayCalculatedBMI = Text(
       bmiResult.toStringAsFixed(2),
       style: TextStyle(
-        color: AppColors.lowhighBMIColor,
+        color: AppColors.normalBMIColor,
         decoration: TextDecoration.none,
         fontSize: ScreenUtil().setSp(48.0),
         fontFamily: 'RubikBold',
@@ -71,7 +71,7 @@ Widget displayCalculatedBMI(double bmiResult) {
     displayCalculatedBMI = Text(
       bmiResult.toStringAsFixed(2),
       style: TextStyle(
-        color: AppColors.lowhighBMIColor,
+        color: AppColors.normalBMIColor,
         decoration: TextDecoration.none,
         fontSize: ScreenUtil().setSp(48.0),
         fontFamily: 'RubikBold',
@@ -81,7 +81,7 @@ Widget displayCalculatedBMI(double bmiResult) {
     displayCalculatedBMI = Text(
       bmiResult.toStringAsFixed(2),
       style: TextStyle(
-        color: AppColors.lowhighBMIColor,
+        color: AppColors.normalBMIColor,
         decoration: TextDecoration.none,
         fontSize: ScreenUtil().setSp(48.0),
         fontFamily: 'RubikBold',

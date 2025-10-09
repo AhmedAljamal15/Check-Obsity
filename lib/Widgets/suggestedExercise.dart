@@ -1,4 +1,4 @@
-import 'package:check_obsity/constant.dart';
+import 'package:check_obsity/Core/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

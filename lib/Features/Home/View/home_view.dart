@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_final_fields
 
-import 'package:check_obsity/Screens/results.dart';
-import 'package:check_obsity/constant.dart';
+import 'package:check_obsity/Features/Results/view/results_view.dart';
+import 'package:check_obsity/Core/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,39 +34,39 @@ class _HomepageState extends State<Homepage> {
     if (selectedHeightUnit == 'cm') {
       height = double.tryParse(_cmHeightController.text) ?? 0;
     } else {
-      // Convert feet and inches to cm
       double feet = double.tryParse(_ftHeightController.text) ?? 0;
       double inches = double.tryParse(_inHeightController.text) ?? 0;
       height = (feet * 30.48) + (inches * 2.54);
     }
 
     if (selectedWeightUnit == 'lbs') {
-      // Convert pounds to kilograms
       var w = (double.tryParse(_lbsWeightController.text) ?? 0 * 0.453592);
       weight = (w * 0.453592);
     } else {
       weight = double.tryParse(_kgsWeightController.text) ?? 0;
     }
 
-    // BMI calculation formula: BMI = weight (kg) / (height (m))^2
     return weight / ((height / 100) * (height / 100));
   }
 
-  void onPressedCheckHealth(String gender, String age, String height,
-      String weight, String heightUnit, String weightUnit) {
-    // Validate gender
+  void onPressedCheckHealth(
+    String gender,
+    String age,
+    String height,
+    String weight,
+    String heightUnit,
+    String weightUnit,
+  ) {
     if (selectedGender == 'notselected') {
       showValidationError('Gender not selected');
       return;
     }
-    // Validate age
     double parsedAge = double.tryParse(age) ?? 0;
     if (parsedAge < 3 || parsedAge > 100) {
       showValidationError('Invalid Age');
       return;
     }
 
-    // Validate height
     double parsedHeight;
     if (selectedHeightUnit == 'cm') {
       parsedHeight = double.tryParse(_cmHeightController.text) ?? 0;
@@ -85,7 +85,6 @@ class _HomepageState extends State<Homepage> {
       return;
     }
 
-    // Validate weight
     double parsedWeight;
     if (selectedWeightUnit == 'lbs') {
       parsedWeight = double.tryParse(_lbsWeightController.text) ?? 0;
@@ -105,14 +104,12 @@ class _HomepageState extends State<Homepage> {
         ((_lbsWeightController.text.isEmpty && selectedWeightUnit == 'lbs') ||
             (_kgsWeightController.text.isEmpty &&
                 selectedWeightUnit == 'kgs'))) {
-      // Handle case where any required field is empty
       showValidationError('Incomplete height or weight');
       return;
     }
 
     double bmi = calculateBMI();
 
-    // Now you can use the BMI value as needed, for example, display it in a dialog
     Get.to(
       () => Results(
         bmi: bmi,
@@ -140,9 +137,7 @@ class _HomepageState extends State<Homepage> {
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
-          side: const BorderSide(
-            color: AppColors.blueColor,
-          ),
+          side: const BorderSide(color: AppColors.blueColor),
         ),
         actions: [
           ElevatedButton(
@@ -152,10 +147,7 @@ class _HomepageState extends State<Homepage> {
             onPressed: () {
               Get.back(); // Close the dialog
             },
-            child: const Text(
-              'OK',
-              style: TextStyle(color: Colors.white),
-            ),
+            child: const Text('OK', style: TextStyle(color: Colors.white)),
           ),
         ],
       ),
@@ -169,29 +161,18 @@ class _HomepageState extends State<Homepage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-              height: 50.h,
-            ),
+            SizedBox(height: 60.h),
             Center(
               child: RichText(
                 text: TextSpan(
                   style: DefaultTextStyle.of(context).style,
                   children: <TextSpan>[
                     TextSpan(
-                      text: 'Healthy',
+                      text: 'Check Obesity\nCheck Your Health',
                       style: TextStyle(
-                        color: AppColors.blueColor,
+                        color: AppColors.normalBMIColor,
                         decoration: TextDecoration.none,
-                        fontSize: ScreenUtil().setSp(48.0),
-                        fontFamily: 'RubikBold',
-                      ),
-                    ),
-                    TextSpan(
-                      text: 'Hub',
-                      style: TextStyle(
-                        color: AppColors.redColor,
-                        decoration: TextDecoration.none,
-                        fontSize: ScreenUtil().setSp(48.0),
+                        fontSize: ScreenUtil().setSp(40.0),
                         fontFamily: 'RubikBold',
                       ),
                     ),
@@ -199,15 +180,7 @@ class _HomepageState extends State<Homepage> {
                 ),
               ),
             ),
-            //freeSPACE
-            selectedGender == "notselected"
-                ? SizedBox(
-                    height: 134.h,
-                  )
-                : SizedBox(
-                    height: 40.h,
-                  ),
-
+            SizedBox(height: 20.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -218,8 +191,8 @@ class _HomepageState extends State<Homepage> {
                         height: 230.h,
                       )
                     : selectedGender == 'female'
-                        ? _getFemaleImage()
-                        : _getMaleImage(),
+                    ? _getFemaleImage()
+                    : _getMaleImage(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -227,10 +200,11 @@ class _HomepageState extends State<Homepage> {
                     Text(
                       "Gender",
                       style: TextStyle(
-                        color: AppColors.blueColor,
+                        color: AppColors.normalBMIColor,
                         decoration: TextDecoration.none,
                         fontSize: ScreenUtil().setSp(24.0),
                         fontFamily: 'RubikBold',
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     Material(
@@ -259,7 +233,7 @@ class _HomepageState extends State<Homepage> {
                                     Radius.circular(10.r),
                                   ),
                                   color: selectedGender == 'male'
-                                      ? Colors.blue
+                                      ? Colors.green
                                       : Colors.white,
                                 ),
                                 child: Center(
@@ -282,12 +256,13 @@ class _HomepageState extends State<Homepage> {
                                 height: 52.h,
                                 width: 75.w,
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(10.r),
-                                    ),
-                                    color: selectedGender == 'female'
-                                        ? Colors.pink
-                                        : Colors.white),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10.r),
+                                  ),
+                                  color: selectedGender == 'female'
+                                      ? Colors.green
+                                      : Colors.white,
+                                ),
                                 child: Center(
                                   child: Icon(
                                     Icons.female,
@@ -304,15 +279,14 @@ class _HomepageState extends State<Homepage> {
                     ),
 
                     //freeSPACE
-                    SizedBox(
-                      height: 20.h,
-                    ),
+                    SizedBox(height: 20.h),
 
                     //Age
                     Text(
                       "Age",
                       style: TextStyle(
-                        color: AppColors.blueColor,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.normalBMIColor,
                         decoration: TextDecoration.none,
                         fontSize: ScreenUtil().setSp(24.0),
                         fontFamily: 'RubikBold',
@@ -325,9 +299,7 @@ class _HomepageState extends State<Homepage> {
                         height: 52.h,
                         width: 150.w,
                         decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 0.1.w,
-                          ),
+                          border: Border.all(width: 0.1.w),
                           borderRadius: BorderRadius.circular(10.r),
                         ),
                         child: TextField(
@@ -349,9 +321,7 @@ class _HomepageState extends State<Homepage> {
                     ),
 
                     //freeSPACE
-                    SizedBox(
-                      height: 20.h,
-                    ),
+                    SizedBox(height: 20.h),
 
                     //Height
                     Row(
@@ -359,7 +329,8 @@ class _HomepageState extends State<Homepage> {
                         Text(
                           "Height",
                           style: TextStyle(
-                            color: AppColors.blueColor,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.normalBMIColor,
                             decoration: TextDecoration.none,
                             fontSize: ScreenUtil().setSp(24.0),
                             fontFamily: 'RubikBold',
@@ -374,8 +345,9 @@ class _HomepageState extends State<Homepage> {
                                 selectedHeightUnit = newValue!;
                               });
                             },
-                            items: heightUnits
-                                .map<DropdownMenuItem<String>>((String value) {
+                            items: heightUnits.map<DropdownMenuItem<String>>((
+                              String value,
+                            ) {
                               return DropdownMenuItem<String>(
                                 value: value,
                                 child: Text(
@@ -400,9 +372,7 @@ class _HomepageState extends State<Homepage> {
                               height: 52.h,
                               width: 150.w,
                               decoration: BoxDecoration(
-                                border: Border.all(
-                                  width: 0.1.w,
-                                ),
+                                border: Border.all(width: 0.1.w),
                                 borderRadius: BorderRadius.circular(10.r),
                               ),
                               child: TextField(
@@ -432,9 +402,7 @@ class _HomepageState extends State<Homepage> {
                                   height: 52.h,
                                   width: 70.w,
                                   decoration: BoxDecoration(
-                                    border: Border.all(
-                                      width: 0.1.w,
-                                    ),
+                                    border: Border.all(width: 0.1.w),
                                     borderRadius: BorderRadius.circular(10.r),
                                   ),
                                   child: TextField(
@@ -442,8 +410,9 @@ class _HomepageState extends State<Homepage> {
                                       setState(() {});
                                     },
                                     decoration: InputDecoration(
-                                      contentPadding:
-                                          EdgeInsets.only(left: 10.w),
+                                      contentPadding: EdgeInsets.only(
+                                        left: 10.w,
+                                      ),
                                       border: InputBorder.none,
                                       hintText: "Ft",
                                       counterText: "",
@@ -456,9 +425,7 @@ class _HomepageState extends State<Homepage> {
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                width: 10.w,
-                              ),
+                              SizedBox(width: 10.w),
                               Material(
                                 elevation: 2,
                                 borderRadius: BorderRadius.circular(10.r),
@@ -466,9 +433,7 @@ class _HomepageState extends State<Homepage> {
                                   height: 52.h,
                                   width: 70.w,
                                   decoration: BoxDecoration(
-                                    border: Border.all(
-                                      width: 0.1.w,
-                                    ),
+                                    border: Border.all(width: 0.1.w),
                                     borderRadius: BorderRadius.circular(10.r),
                                   ),
                                   child: TextField(
@@ -476,8 +441,9 @@ class _HomepageState extends State<Homepage> {
                                       setState(() {});
                                     },
                                     decoration: InputDecoration(
-                                      contentPadding:
-                                          EdgeInsets.only(left: 10.w),
+                                      contentPadding: EdgeInsets.only(
+                                        left: 10.w,
+                                      ),
                                       border: InputBorder.none,
                                       hintText: "In",
                                       counterText: "",
@@ -494,9 +460,7 @@ class _HomepageState extends State<Homepage> {
                           ),
 
                     //freeSPACE
-                    SizedBox(
-                      height: 20.h,
-                    ),
+                    SizedBox(height: 20.h),
 
                     //Weight
                     Row(
@@ -504,7 +468,8 @@ class _HomepageState extends State<Homepage> {
                         Text(
                           "Weight",
                           style: TextStyle(
-                            color: AppColors.blueColor,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.normalBMIColor,
                             decoration: TextDecoration.none,
                             fontSize: ScreenUtil().setSp(24.0),
                             fontFamily: 'RubikBold',
@@ -519,8 +484,9 @@ class _HomepageState extends State<Homepage> {
                                 selectedWeightUnit = newValue!;
                               });
                             },
-                            items: weightUnits
-                                .map<DropdownMenuItem<String>>((String value) {
+                            items: weightUnits.map<DropdownMenuItem<String>>((
+                              String value,
+                            ) {
                               return DropdownMenuItem<String>(
                                 value: value,
                                 child: Text(
@@ -544,9 +510,7 @@ class _HomepageState extends State<Homepage> {
                         height: 52.h,
                         width: 150.w,
                         decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 0.1.w,
-                          ),
+                          border: Border.all(width: 0.1.w),
                           borderRadius: BorderRadius.circular(10.r),
                         ),
                         child: TextField(
@@ -561,8 +525,9 @@ class _HomepageState extends State<Homepage> {
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.only(left: 10.w),
                             border: InputBorder.none,
-                            hintText:
-                                selectedWeightUnit == "lbs" ? "Lbs" : "Kgs",
+                            hintText: selectedWeightUnit == "lbs"
+                                ? "Lbs"
+                                : "Kgs",
                             counterText: "",
                           ),
                           controller: selectedWeightUnit == "lbs"
@@ -575,68 +540,69 @@ class _HomepageState extends State<Homepage> {
                       ),
                     ),
                   ],
-                )
+                ),
               ],
             ),
 
-            //freeSPACE
-            selectedGender == "notselected"
-                ? SizedBox(
-                    height: 142.h,
-                  )
-                : SizedBox(
-                    height: 48.h,
-                  ),
+            // //freeSPACE
+            // selectedGender == "notselected"
+            //     ? SizedBox(height: 142.h)
+            //     : SizedBox(height: 48.h),
 
             //Button
+            SizedBox(height: 50.h),
             ElevatedButton(
               style: ButtonStyle(
-                  backgroundColor:
-                      const MaterialStatePropertyAll(AppColors.blueColor),
-                  minimumSize: const MaterialStatePropertyAll(
-                    Size(300, 55),
+                backgroundColor: const MaterialStatePropertyAll(
+                  AppColors.normalBMIColor,
+                ),
+                minimumSize: const MaterialStatePropertyAll(Size(250, 55)),
+                shape: MaterialStatePropertyAll(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
-                  shape: MaterialStatePropertyAll(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  )),
+                ),
+              ),
               onPressed: () {
                 if (selectedHeightUnit == "cm" && selectedWeightUnit == "lbs") {
                   onPressedCheckHealth(
-                      selectedGender,
-                      _ageController.text,
-                      _cmHeightController.text,
-                      _lbsWeightController.text,
-                      selectedHeightUnit,
-                      selectedWeightUnit);
+                    selectedGender,
+                    _ageController.text,
+                    _cmHeightController.text,
+                    _lbsWeightController.text,
+                    selectedHeightUnit,
+                    selectedWeightUnit,
+                  );
                 } else if (selectedHeightUnit == "ft.in" &&
                     selectedWeightUnit == "lbs") {
                   onPressedCheckHealth(
-                      selectedGender,
-                      _ageController.text,
-                      "${_ftHeightController.text}.${_inHeightController.text}",
-                      _lbsWeightController.text,
-                      selectedHeightUnit,
-                      selectedWeightUnit);
+                    selectedGender,
+                    _ageController.text,
+                    "${_ftHeightController.text}.${_inHeightController.text}",
+                    _lbsWeightController.text,
+                    selectedHeightUnit,
+                    selectedWeightUnit,
+                  );
                 } else if (selectedHeightUnit == "cm" &&
                     selectedWeightUnit == "kgs") {
                   onPressedCheckHealth(
-                      selectedGender,
-                      _ageController.text,
-                      _cmHeightController.text,
-                      _kgsWeightController.text,
-                      selectedHeightUnit,
-                      selectedWeightUnit);
+                    selectedGender,
+                    _ageController.text,
+                    _cmHeightController.text,
+                    _kgsWeightController.text,
+                    selectedHeightUnit,
+                    selectedWeightUnit,
+                  );
                 } else if (selectedHeightUnit == "ft.in" &&
                     selectedWeightUnit == "kgs") {
                   onPressedCheckHealth(
-                      selectedGender,
-                      _ageController.text,
-                      "${_ftHeightController.text}.${_inHeightController.text}",
-                      _kgsWeightController.text,
-                      selectedHeightUnit,
-                      selectedWeightUnit);
+                    selectedGender,
+                    _ageController.text,
+                    "${_ftHeightController.text}.${_inHeightController.text}",
+                    _kgsWeightController.text,
+                    selectedHeightUnit,
+                    selectedWeightUnit,
+                  );
                 }
               },
               child: Text(
@@ -645,6 +611,7 @@ class _HomepageState extends State<Homepage> {
                   color: Colors.white,
                   fontSize: ScreenUtil().setSp(26.0),
                   fontFamily: 'RubikBold',
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
@@ -658,29 +625,21 @@ class _HomepageState extends State<Homepage> {
     int age = int.tryParse(_ageController.text) ?? 0;
     return age > 60
         ? Image.asset(
-            'assets/images/old_lady.png',
+            'assets/persons/grand_mother.jpg',
             width: 227.w,
             height: 630.h,
           )
-        : Image.asset(
-            'assets/images/young_girl.png',
-            width: 227.w,
-            height: 630.h,
-          );
+        : Image.asset('assets/persons/girl.jpg', width: 227.w, height: 630.h);
   }
 
   Widget _getMaleImage() {
     int age = int.tryParse(_ageController.text) ?? 0;
     return age > 60
         ? Image.asset(
-            'assets/images/old_man.png',
+            'assets/persons/grand_father.jpg',
             width: 227.w,
             height: 630.h,
           )
-        : Image.asset(
-            'assets/images/young_boy.png',
-            width: 227.w,
-            height: 630.h,
-          );
+        : Image.asset('assets/persons/man.jpg', width: 227.w, height: 630.h);
   }
 }
