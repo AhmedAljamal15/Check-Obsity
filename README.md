@@ -15,7 +15,7 @@ CheckObesity is a cross-platform application built with Flutter to help users tr
 ## 🎥 Demo
 <p align="left">
   <img src="assets/screenshots/splash_view.png" width="280" />
-  <img src="assets/screenshots/girl.png" width="280" />
+  <img src="assets/screenshots/girll.png" width="280" />
   <img src="assets/screenshots/grand_father.png" width="280" />
   <img src="assets/screenshots/grand_mother.png" width="280" />
   <img src="assets/screenshots/man.png" width="280" />
