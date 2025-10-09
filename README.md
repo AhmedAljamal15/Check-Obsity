@@ -1,6 +1,6 @@
-# HealthyHub BMI Calculator
+# Check Obesity
 
-HealthyHub is a cross-platform application built with Flutter to help users track their health by calculating their Body Mass Index (BMI). Based on user inputs like age, gender, height, and weight, the app provides a comprehensive health analysis, including personalized diet and exercise plans.
+CheckObesity is a cross-platform application built with Flutter to help users track their health by calculating their Body Mass Index (BMI). Based on user inputs like age, gender, height, and weight, the app provides a comprehensive health analysis, including personalized diet and exercise plans.
 
 ## Features
 
@@ -14,17 +14,18 @@ HealthyHub is a cross-platform application built with Flutter to help users trac
 
 ## 🎥 Demo
 <p align="left">
-  <img src="assets/screenshots/home.png" width="280" />
-  <img src="assets/screenshots/diet_plan.png" width="280" />
+  <img src="assets/screenshots/splash_view.png" width="280" />
   <img src="assets/screenshots/girl.png" width="280" />
-  <img src="assets/screenshots/healthy.png" width="280" />
-  <img src="assets/screenshots/traning_plan.png" width="280" />
+  <img src="assets/screenshots/grand_father.png" width="280" />
+  <img src="assets/screenshots/grand_mother.png" width="280" />
+  <img src="assets/screenshots/man.png" width="280" />
+  <img src="assets/screenshots/onBoarding.png" width="280" />
 </p>
 
 
 ## Application Flow
 
-1.  **Splash & Onboarding:** The app starts with a splash screen, followed by a one-time onboarding screen that introduces the features of HealthyHub.
+1.  **Splash & Onboarding:** The app starts with a splash screen, followed by a one-time onboarding screen that introduces the features of CheckObesity.
 2.  **Home Screen:** Users enter their details: gender, age, height, and weight. The interface provides options for different units and updates dynamically.
 3.  **Results Screen:** After submitting the data, the app displays the calculated BMI score, classifies the result (e.g., "Normal", "Over Weight"), and summarizes the user's data.
 4.  **Diet Plan:** Users can navigate to a dedicated screen that outlines a sample diet plan with meal ideas and an important tip relevant to their BMI status.
